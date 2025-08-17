@@ -6,7 +6,6 @@ API_TOKEN = "sk-1234567890abcdefghijklmnop"
 STRIPE_KEY = "sk_live_1234567890abcdef"
 GITHUB_TOKEN = "ghp_1234567890abcdefghijklmnop"
 
-
 # sql_injection.py - Clear SQL injection
 import sqlite3
 def get_user(user_id):
