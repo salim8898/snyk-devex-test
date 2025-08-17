@@ -1,24 +1,35 @@
 # Dockerfile
-FROM ubuntu:18.04
+FROM ubuntu:16.04
 
 # Running as root (security issue)
 USER root
 
-# Hardcoded secrets
-ENV API_KEY="sk-1234567890abcdef"
-ENV DB_PASSWORD="admin123"
+# Hardcoded secrets in ENV
+ENV DATABASE_PASSWORD="admin123"
+ENV API_SECRET_KEY="sk-1234567890abcdefghijklmnop"
+ENV JWT_SECRET="my-super-secret-jwt-key"
 
-# Vulnerable package versions
+# Install packages without version pinning
 RUN apt-get update && apt-get install -y \
-    curl=7.58.0-2ubuntu3.8 \
-    openssl=1.1.1-1ubuntu2.1~18.04.5
+    curl \
+    wget \
+    sudo
 
-# Copying with broad permissions
+# Copy with overly broad permissions
 COPY . /app
 RUN chmod 777 /app
+RUN chmod 777 /app/*
 
-# Exposing unnecessary ports
-EXPOSE 22 3306 5432
+# Expose risky ports
+EXPOSE 22
+EXPOSE 3306
+EXPOSE 5432
+
+# Add user with weak password
+RUN useradd -m -p $(openssl passwd -1 password123) testuser
+
+# Download and execute script (risky)
+RUN curl -sSL https://get.docker.com/ | sh
 
 WORKDIR /app
 CMD ["python", "app.py"]
