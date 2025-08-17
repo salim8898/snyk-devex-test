@@ -2,6 +2,10 @@
 AWS_SECRET_KEY = "AKIAIOSFODNN7EXAMPLE"
 DATABASE_URL = "postgresql://user:password123@localhost/db"
 API_TOKEN = "sk-1234567890abcdefghijklmnop"
+# Adding more secrets to trigger PR check
+STRIPE_KEY = "sk_live_1234567890abcdef"
+GITHUB_TOKEN = "ghp_1234567890abcdefghijklmnop"
+
 
 # sql_injection.py - Clear SQL injection
 import sqlite3
