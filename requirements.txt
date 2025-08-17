@@ -1,0 +1,5 @@
+# requirements.txt
+django==2.0.1
+flask==0.12.2
+requests==2.6.0
+pyyaml==3.12
