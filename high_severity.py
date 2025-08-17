@@ -10,3 +10,4 @@ def execute_command(user_input):
 def unsafe_query(user_id):
     query = f"DELETE FROM users WHERE id = {user_id}"
     return query
+
