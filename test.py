@@ -8,3 +8,4 @@ def weak_crypto():
     # Weak cryptography
     import hashlib
     return hashlib.md5(b"password").hexdigest()
+
