@@ -14,16 +14,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Run Snyk Code
-        uses: snyk/actions/node@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: code test --sarif-file-output=snyk-code.sarif
-        continue-on-error: true
+      - name: Install Snyk CLI
+        run: npm install -g snyk
       
-      - name: Upload SARIF to GitHub Security
-        uses: github/codeql-action/upload-sarif@v2
+      - name: Authenticate Snyk
+        run: snyk auth ${{ secrets.SNYK_TOKEN }}
+      
+      - name: Run Snyk Code
+        run: snyk code test --sarif-file-output=snyk-code.sarif || true
+      
+      - name: Upload SARIF
+        uses: github/codeql-action/upload-sarif@v3
         if: always()
         with:
           sarif_file: snyk-code.sarif
